@@ -1,0 +1,5 @@
+.nextflow*
+results*
+work
+.vscode
+nextflow_schema.json
