@@ -69,10 +69,10 @@ Run without tree building:
 `nextflow run main.nf --input samples.csv --run_snpsites -profile conda`
 
 ## Pipeline Steps
-Input validation
-SKA alignment
-SNP-sites analysis (optional)
-Tree building (optional)
+* Input validation
+* SKA alignment
+* SNP-sites analysis (optional)
+* Tree building (optional)
 
 ## Citations
 If you use this pipeline in your research, please cite:
@@ -100,5 +100,5 @@ doi:[10.1093/bioinformatics/btz305](https://doi.org/10.1093/bioinformatics/btz30
 
 Afolayan et al. (2024). SKA Phylogeny Pipeline. GitHub repository: https://github.com/ayoraind/SKA_phylogeny
 
-#### Credits and Acknowledgements
+## Credits and Acknowledgements
 This is an ongoing project at the Microbial Genome Analysis Group, Institute for Infection Prevention and Hospital Epidemiology, Üniversitätsklinikum, Freiburg. The TAPIR (Tracking the Acquisition of Pathogens in Real-Time) project is funded by BMBF, Germany, and is led by [Dr. Sandra Reuter](https://www.uniklinik-freiburg.de/institute-for-infection-prevention-and-control/microbial-genome-analysis.html).
