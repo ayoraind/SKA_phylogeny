@@ -19,8 +19,7 @@ The SKA Phylogeny Pipeline is a Nextflow-based workflow for performing phylogene
 
 ## Usage
 
-```bash
-nextflow run main.nf [options]
+`nextflow run main.nf [options]`
 
 Options
 --input: Input CSV file with sample information (required)
@@ -71,7 +70,6 @@ Input validation
 SKA alignment
 SNP-sites analysis (optional)
 Tree building (optional)
-
 
 ## Citations
 If you use this pipeline in your research, please cite:
