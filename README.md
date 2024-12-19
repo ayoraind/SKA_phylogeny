@@ -29,6 +29,7 @@ Options
 --run_tree_building: Run tree building (default: false)
 --tree_method: Tree building method (default: 'iqtree')
 Options: 'iqtree', 'rapidnj', 'raxml', 'fastme', 'fasttree'
+
 Flags
 --help: Display help message
 --version: Display version information
