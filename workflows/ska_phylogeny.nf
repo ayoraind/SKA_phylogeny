@@ -1,5 +1,6 @@
 include { SKA_ANALYSIS } from '../subworkflows/local/ska_analysis'
 include { SNPSITES     } from '../modules/nf-core/snpsites/main'
+include { SNPDISTS } from '../modules/nf-core/snpdists/main'
 include { PHYLOGENETIC_TREE } from '../subworkflows/local/phylogenetic_tree'
 include { RESCALE_TREE } from '../modules/local/rescale_tree/main'
 
@@ -15,10 +16,14 @@ workflow SKA_PHYLOGENY {
     // SNP-sites (optional)
     ch_alignment_for_tree = SKA_ANALYSIS.out.alignment
     ch_snpsites_versions = Channel.empty()
+    ch_snpdists_versions = Channel.empty()
     if (params.run_snpsites) {
         SNPSITES(SKA_ANALYSIS.out.alignment)
         ch_alignment_for_tree = SNPSITES.out.snps_aln
         ch_snpsites_versions = SNPSITES.out.versions
+
+        SNPDISTS(ch_alignment_for_tree)
+        ch_snpdists_versions = SNPDISTS.out.versions
     }
 
     // Generate phylogenetic tree (optional)
@@ -40,6 +45,7 @@ workflow SKA_PHYLOGENY {
     distance_matrix = SKA_ANALYSIS.out.distance
     versions = SKA_ANALYSIS.out.versions
         .mix(ch_snpsites_versions.ifEmpty(Channel.empty()))
+        .mix(ch_snpdists_versions.ifEmpty(Channel.empty()))
         .mix(ch_tree_versions.ifEmpty(Channel.empty()))
         .mix(ch_rescale_tree_versions.ifEmpty(Channel.empty()))
 }
