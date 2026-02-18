@@ -57,6 +57,9 @@ Basic run with default settings:
 
 `nextflow run main.nf --input samples.csv -profile conda`
 
+Run within an HPC cluster
+`nextflow run main.nf --input samples.csv -profile conda,slurm`
+
 Run with SNP-sites and IQ-TREE:
 
 `nextflow run main.nf --input samples.csv --run_snpsites --run_tree_building --tree_method iqtree -profile conda`
