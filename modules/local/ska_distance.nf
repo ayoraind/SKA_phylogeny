@@ -1,5 +1,5 @@
 process SKA_DISTANCE {
-    label 'process_medium'
+    label 'process_high'
 
     conda "bioconda::ska"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
