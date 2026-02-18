@@ -30,6 +30,22 @@ def versionMessage() {
     log.info"Nextflow version: $workflow.nextflow.version"
 }
 
+// Function to print workflow summary
+def workflowSummary() {
+    // Print parameter summary
+    log.info """
+    ====================================
+    SKA Phylogeny Pipeline
+    ====================================
+    Input CSV        : ${params.input}
+    Output directory : ${params.outdir}
+    Run SNP-sites    : ${params.run_snpsites}
+    Run tree building: ${params.run_tree_building}
+    Tree method      : ${params.run_tree_building ? params.tree_method : 'N/A'}
+    ====================================
+    """
+}
+
 // Main workflow
 workflow {
 
@@ -50,28 +66,15 @@ workflow {
     SKA_PHYLOGENY ( INPUT_CHECK.out.input_data, params.tree_method )
     // SKA_PHYLOGENY.out.versions.view { "SKA_PHYLOGENY versions: $it" }
     // Collect and save versions information
-    ch_versions = INPUT_CHECK.out.versions.mix(SKA_PHYLOGENY.out.versions.ifEmpty(Channel.empty()))
+    ch_versions = INPUT_CHECK.out.versions.mix(SKA_PHYLOGENY.out.versions.ifEmpty(channel.empty()))
+
+    // Print workflow summary on start
+    workflow.onComplete {
+        workflowSummary()
+        log.info "Pipeline completed at: $workflow.complete"
+        log.info "Execution status: ${ workflow.success ? 'OK' : 'failed' }"
+    }
 }
 
-// Function to print workflow summary
-def workflowSummary() {
-    // Print parameter summary
-    log.info """
-    ====================================
-    SKA Phylogeny Pipeline
-    ====================================
-    Input CSV        : ${params.input}
-    Output directory : ${params.outdir}
-    Run SNP-sites    : ${params.run_snpsites}
-    Run tree building: ${params.run_tree_building}
-    Tree method      : ${params.run_tree_building ? params.tree_method : 'N/A'}
-    ====================================
-    """
-}
 
-// Print workflow summary on start
-workflow.onComplete {
-    workflowSummary()
-    log.info "Pipeline completed at: $workflow.complete"
-    log.info "Execution status: ${ workflow.success ? 'OK' : 'failed' }"
-}
+

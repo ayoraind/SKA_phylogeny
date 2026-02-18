@@ -15,8 +15,8 @@ workflow SKA_PHYLOGENY {
 
     // SNP-sites (optional)
     ch_alignment_for_tree = SKA_ANALYSIS.out.alignment
-    ch_snpsites_versions = Channel.empty()
-    ch_snpdists_versions = Channel.empty()
+    ch_snpsites_versions = channel.empty()
+    ch_snpdists_versions = channel.empty()
     if (params.run_snpsites) {
         SNPSITES(SKA_ANALYSIS.out.alignment)
         ch_alignment_for_tree = SNPSITES.out.snps_aln
@@ -27,9 +27,9 @@ workflow SKA_PHYLOGENY {
     }
 
     // Generate phylogenetic tree (optional)
-    ch_tree = Channel.empty()
-    ch_tree_versions = Channel.empty()
-    ch_rescale_tree_versions = Channel.empty()
+    ch_tree = channel.empty()
+    ch_tree_versions = channel.empty()
+    ch_rescale_tree_versions = channel.empty()
     if (params.run_tree_building) {
         PHYLOGENETIC_TREE(ch_alignment_for_tree, tree_method)
         ch_tree = PHYLOGENETIC_TREE.out.tree
@@ -44,8 +44,8 @@ workflow SKA_PHYLOGENY {
     tree = ch_tree
     distance_matrix = SKA_ANALYSIS.out.distance
     versions = SKA_ANALYSIS.out.versions
-        .mix(ch_snpsites_versions.ifEmpty(Channel.empty()))
-        .mix(ch_snpdists_versions.ifEmpty(Channel.empty()))
-        .mix(ch_tree_versions.ifEmpty(Channel.empty()))
-        .mix(ch_rescale_tree_versions.ifEmpty(Channel.empty()))
+        .mix(ch_snpsites_versions.ifEmpty(channel.empty()))
+        .mix(ch_snpdists_versions.ifEmpty(channel.empty()))
+        .mix(ch_tree_versions.ifEmpty(channel.empty()))
+        .mix(ch_rescale_tree_versions.ifEmpty(channel.empty()))
 }
