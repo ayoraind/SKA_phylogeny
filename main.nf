@@ -69,7 +69,7 @@ workflow {
     ch_versions = INPUT_CHECK.out.versions.mix(SKA_PHYLOGENY.out.versions.ifEmpty(channel.empty()))
 
     // Print workflow summary on start
-    workflow.onComplete {
+    workflow.onComplete = {
         workflowSummary()
         log.info "Pipeline completed at: $workflow.complete"
         log.info "Execution status: ${ workflow.success ? 'OK' : 'failed' }"
